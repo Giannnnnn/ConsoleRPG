@@ -7,7 +7,7 @@ namespace RPG
         static void Main(string[] args)
         {
             Game game = new Game();
-            Console.WriteLine(GUI.Title("WELCOME FILHA DA PUTA"));
+            GUI.Title("WELCOME FILHA DA PUTA");
             game.Run();
         }
     }

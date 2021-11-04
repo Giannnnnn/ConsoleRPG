@@ -1,5 +1,6 @@
 ﻿using RPG.Gameplay;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,8 +8,10 @@ namespace RPG.States
 {
     class MainMenuState : State
     {
-        public MainMenuState(Stack<State> states) : base(states)
+        protected ArrayList characterList;
+        public MainMenuState(Stack<State> states, ArrayList character_list) : base(states)
         {
+            this.characterList = character_list;
         }
 
         public void ProcessInput(int input)
@@ -18,11 +21,14 @@ namespace RPG.States
                 case -1:
                     this.end = true;
                     break;
-                case 0:
-                    break;
                 case 1:
-                    this.states.Push(new CharacterCreationState(this.states));
+                    break;
+                case 2:
+                    this.states.Push(new CharacterCreationState(this.states, this.characterList));
 
+                    break; 
+                case 3:
+                    Console.WriteLine(this.characterList.Count);
                     break;
                 default:
                     break;
@@ -30,13 +36,14 @@ namespace RPG.States
         }
         public override void Update()
         {
-            Console.Write(GUI.MenuTitle("Game State"));
-            Console.Write(GUI.MenuOption(0, "New Game "));
-            Console.Write(GUI.MenuOption(1, "Create Character "));
-            Console.Write(GUI.MenuOption(-1, "Exit"));
+            GUI.MenuTitle("Game State");
+            GUI.MenuOption(1, "New Game ");
+            GUI.MenuOption(2, "Create Character ");
+            GUI.MenuOption(3, "List Characters ");
+            GUI.MenuOption(-1, "Exit");
 
-            Console.WriteLine("Write a number: ");
-            int input = Convert.ToInt32(Console.ReadLine());
+            GUI.SelectAnOption("Select");
+            var input = Convert.ToInt32(Console.ReadLine());
 
 
             this.ProcessInput(input);

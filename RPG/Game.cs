@@ -1,5 +1,6 @@
 ﻿using RPG.States;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,8 @@ namespace RPG
     {
         public bool end { get; set; }
         public Stack<State> states { get; set; }
+        private ArrayList characterList;
+
         private void InitVariables()
         {
             this.end = false;
@@ -16,13 +19,19 @@ namespace RPG
         private void InitStates()
         {
             this.states = new Stack<State>();
-            this.states.Push(new MainMenuState(this.states));
+            this.states.Push(new MainMenuState(this.states, this.characterList));
             //this.states.Push(new GameState(this.states));
+        }
+
+        private void InitCharacterList()
+        {
+            this.characterList = new ArrayList();
         }
 
         public Game()
         {
             this.InitVariables();
+            this.InitCharacterList();
             this.InitStates();
         }
 
@@ -42,7 +51,7 @@ namespace RPG
                 }
             }
 
-            Console.WriteLine("Ending Game...");
+            GUI.End("Game Over");
         }
 
 

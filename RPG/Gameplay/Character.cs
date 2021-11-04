@@ -9,6 +9,7 @@ namespace RPG.Gameplay
 
         //core
         private String name = "";
+        private String description = "";
         private int level = 0;
         private int exp = 3;
         private int attributePoints = 3;
@@ -43,10 +44,11 @@ namespace RPG.Gameplay
             this.expMax = this.level * 100;
         }
 
-        public Character(String name)
+        public Character(String name, String description)
         {
             this.CalculateStats();
             this.name = name;
+            this.description = description;
         }
         public override String ToString()
         {
